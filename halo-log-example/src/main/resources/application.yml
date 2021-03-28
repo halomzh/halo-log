@@ -1,0 +1,9 @@
+server:
+  port: 8899
+spring:
+  application:
+    name: example-app
+
+halo:
+  log:
+    enable: true
