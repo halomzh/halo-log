@@ -4,6 +4,7 @@ import com.halo.log.aspect.HaloLogAspect;
 import com.halo.log.config.properties.HaloLogProperties;
 import com.halo.log.interceptor.AbstractLogInterceptor;
 import com.halo.log.listener.AbstractLogListener;
+import com.halo.log.listener.DefaultLogListener;
 import com.halo.log.utils.LogContextUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ import java.util.Map;
 @EnableConfigurationProperties(value = {
 		HaloLogProperties.class
 })
-@ConditionalOnProperty(prefix = HaloLogProperties.PREFIX, value = "enable")
+@ConditionalOnProperty(prefix = HaloLogProperties.PREFIX, name = "enable", havingValue = "true")
 @Slf4j
 @Data
 public class HaloLogConfig implements ApplicationRunner, WebMvcConfigurer, ApplicationContextAware {
@@ -49,6 +50,11 @@ public class HaloLogConfig implements ApplicationRunner, WebMvcConfigurer, Appli
 	public HaloLogAspect haloLogAspect() {
 
 		return new HaloLogAspect();
+	}
+
+	@Bean
+	public DefaultLogListener defaultLogListener(){
+		return new DefaultLogListener();
 	}
 
 	@Override
