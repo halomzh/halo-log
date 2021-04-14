@@ -13,10 +13,26 @@ server:
 spring:
   application:
     name: example-app
+  zipkin:
+    base-url: 10.10.71.173:9411
+    sender:
+      type: kafka
+    service:
+      name: ${spring.application.name}
+  sleuth:
+    sampler:
+      probability: 1.0
+  kafka:
+    bootstrap-servers: 10.10.71.173:9092
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev
 
 halo:
   log:
-    enable: true #是否开启日志服务
+    enable: true
+
 ```
 
 ### 编写日志拦截器
@@ -192,24 +208,16 @@ public class App {
 
 ### 测试是否正常运行
 
-![image-20210328214459919](https://raw.githubusercontent.com/halomzh/pic/master/20210328214501.png)![image-20210328214542662](https://raw.githubusercontent.com/halomzh/pic/master/20210328214544.png)![image-20210328214617079](https://raw.githubusercontent.com/halomzh/pic/master/20210328214618.png)![image-20210328214643676](https://raw.githubusercontent.com/halomzh/pic/master/20210328214645.png)
+#### 1、运行请求方法一
 
-![image-20210328214719887](https://raw.githubusercontent.com/halomzh/pic/master/20210328214721.png)
+![image-20210328214459919](https://raw.githubusercontent.com/halomzh/pic/master/20210328214501.png)
 
-![image-20210328214742722](https://raw.githubusercontent.com/halomzh/pic/master/20210328214744.png)
+#### 2、查看请求链路获取，traceId
 
-![image-20210328214832993](https://raw.githubusercontent.com/halomzh/pic/master/20210328214833.png)
+![image-20210414103543313](https://raw.githubusercontent.com/halomzh/pic/master/20210414103551.png)
 
-![image-20210328214912966](https://raw.githubusercontent.com/halomzh/pic/master/20210328214915.png)
+![image-20210414103804336](https://raw.githubusercontent.com/halomzh/pic/master/20210414103806.png)
 
-![image-20210328214943113](https://raw.githubusercontent.com/halomzh/pic/master/20210328214943.png)
+#### 3、根据traceId，到kibana查看存储在elasticsearch的日志
 
-![image-20210328215009961](https://raw.githubusercontent.com/halomzh/pic/master/20210328215011.png)
-
-![image-20210328215040059](https://raw.githubusercontent.com/halomzh/pic/master/20210328215041.png)
-
-![image-20210328215107269](https://raw.githubusercontent.com/halomzh/pic/master/20210328215114.png)
-
-![image-20210328215140803](https://raw.githubusercontent.com/halomzh/pic/master/20210328215141.png)
-
-![image-20210328215211096](https://raw.githubusercontent.com/halomzh/pic/master/20210328215212.png)
+![image-20210414104018653](https://raw.githubusercontent.com/halomzh/pic/master/20210414104021.png)
