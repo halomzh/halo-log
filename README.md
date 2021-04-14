@@ -1,7 +1,7 @@
 # halo-log
 ## 介绍
 
-halo-log用于记录监控用户行为的日志服务。
+halo-log是基于elasticssearch、zipkin、kafka、logstash、filebeat的用于监控接口性能、投递归集查询日志、记录监控用户行为的日志服务。
 
 ## 开始
 
