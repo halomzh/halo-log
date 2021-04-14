@@ -19,4 +19,8 @@ public class LogEvent extends ApplicationEvent {
 		super(source);
 	}
 
+	public LogInfo getLogInfo() {
+		return (LogInfo) getSource();
+	}
+
 }
